@@ -1,0 +1,25 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - mysqldata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: grosirobat_development
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+  web:
+    build: .
+    command: bundle exec rails s -p 5000 -b '0.0.0.0'
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - .:/workspace
+    ports:
+      - "5000:5000"
+volumes:
+  mysqldata:
