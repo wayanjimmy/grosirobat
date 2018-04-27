@@ -24,7 +24,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <Navbar light expand="md">
+      <Navbar dark color="dark" expand="md">
         <NavbarBrand href="/">Paramore</NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>

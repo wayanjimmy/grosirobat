@@ -1,4 +1,4 @@
-class UnitsController < ApplicationController
+class UnitsController < ApiController
   before_action :set_unit, only: [:show, :update, :destroy]
 
   # GET /units
