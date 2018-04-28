@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -14,7 +15,15 @@ import { Formik } from 'formik'
 import * as actions from '../actions/authActions'
 
 class Login extends React.Component {
+  state = {
+    redirectToDashboard: false,
+  }
+
   render() {
+    if (this.state.redirectToDashboard) {
+      return <Redirect to="/" />
+    }
+
     return (
       <section className="h-100">
         <Container className="h-100">
@@ -51,6 +60,9 @@ class Login extends React.Component {
                     onSubmit={(values, { setSubmitting }) => {
                       this.props
                         .dispatch(actions.login(values.email, values.password))
+                        .then(() => {
+                          this.setState({ redirectToDashboard: true })
+                        })
                         .catch(error => {
                           setSubmitting(false)
                         })
