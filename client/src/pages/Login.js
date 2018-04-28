@@ -48,8 +48,12 @@ class Login extends React.Component {
                       }
                       return errors
                     }}
-                    onSubmit={({ email, password }) => {
-                      this.props.dispatch(actions.login(email, password))
+                    onSubmit={(values, { setSubmitting }) => {
+                      this.props
+                        .dispatch(actions.login(values.email, values.password))
+                        .catch(error => {
+                          setSubmitting(false)
+                        })
                     }}
                     render={({
                       values,
@@ -95,4 +99,4 @@ class Login extends React.Component {
   }
 }
 
-export default connect(state => ({}))(Login)
+export default connect(({ loading }) => ({ loading }))(Login)
