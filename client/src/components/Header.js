@@ -44,7 +44,7 @@ class Header extends React.Component {
     const { user } = this.props
     return (
       <Navbar dark color="dark" expand="md">
-        <NavbarBrand href="/">Paramore</NavbarBrand>
+        <NavbarBrand href="/">Grosir Obat</NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>

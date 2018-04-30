@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {
   Row,
   Col,
@@ -12,9 +13,15 @@ import {
 } from 'reactstrap'
 
 import Layout from '../components/Layout'
+import * as actions from '../actions/unitActions'
 
 class Unit extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(actions.getAllUnits())
+  }
+
   render() {
+    const { units } = this.props
     return (
       <Layout>
         <Row className="p-2">
@@ -31,26 +38,28 @@ class Unit extends React.Component {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
-                  <th>Value</th>
+                  <th>Qty</th>
                   <th className="text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Box</td>
-                  <td>10</td>
-                  <td className="text-center">
-                    <ButtonGroup>
-                      <Button size="sm" outline color="primary">
-                        edit
-                      </Button>
-                      <Button size="sm" outline color="danger">
-                        delete
-                      </Button>
-                    </ButtonGroup>
-                  </td>
-                </tr>
+                {units.map((unit, index) => (
+                  <tr key={unit.id}>
+                    <th scope="row">{index + 1}</th>
+                    <td>{unit.name}</td>
+                    <td>{unit.value}</td>
+                    <td className="text-center">
+                      <ButtonGroup>
+                        <Button size="sm" outline color="primary">
+                          edit
+                        </Button>
+                        <Button size="sm" outline color="danger">
+                          delete
+                        </Button>
+                      </ButtonGroup>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>
@@ -83,4 +92,7 @@ class Unit extends React.Component {
   }
 }
 
-export default Unit
+export default connect(state => {
+  const { units } = state.unit
+  return { units }
+})(Unit)
