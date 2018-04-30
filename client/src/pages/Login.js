@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
+import { compose } from 'recompose'
 import {
   Container,
   Row,
@@ -16,12 +17,15 @@ import * as actions from '../actions/authActions'
 
 class Login extends React.Component {
   state = {
-    redirectToDashboard: false,
+    redirectToReferrer: false,
   }
 
   render() {
-    if (this.state.redirectToDashboard) {
-      return <Redirect to="/" />
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { redirectToReferrer } = this.state
+
+    if (redirectToReferrer) {
+      return <Redirect to={from} />
     }
 
     return (
@@ -61,7 +65,7 @@ class Login extends React.Component {
                       this.props
                         .dispatch(actions.login(values.email, values.password))
                         .then(() => {
-                          this.setState({ redirectToDashboard: true })
+                          this.setState({ redirectToReferrer: true })
                         })
                         .catch(error => {
                           setSubmitting(false)
@@ -111,4 +115,10 @@ class Login extends React.Component {
   }
 }
 
-export default connect(({ loading }) => ({ loading }))(Login)
+export default compose(
+  withRouter,
+  connect(state => {
+    const { user } = state.auth
+    return { user }
+  })
+)(Login)
