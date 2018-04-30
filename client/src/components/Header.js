@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {
   Nav,
   Navbar,
@@ -10,6 +11,9 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap'
+import Swal from 'sweetalert2'
+
+import * as authUtil from '../utils/auth'
 
 class Header extends React.Component {
   state = {
@@ -22,7 +26,22 @@ class Header extends React.Component {
     }))
   }
 
+  handleLogout = e => {
+    e.preventDefault()
+    Swal({
+      title: 'Logout',
+      text: 'Are you sure?',
+      type: 'warning',
+      showCancelButton: true,
+    }).then(result => {
+      if (result.value) {
+        authUtil.logout(() => window.location.reload())
+      }
+    })
+  }
+
   render() {
+    const { user } = this.props
     return (
       <Navbar dark color="dark" expand="md">
         <NavbarBrand href="/">Paramore</NavbarBrand>
@@ -40,13 +59,13 @@ class Header extends React.Component {
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Admin
+                {user.name}
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>Manage Users</DropdownItem>
                 <DropdownItem>Change Password</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>Logout</DropdownItem>
+                <DropdownItem onClick={this.handleLogout}>Logout</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
@@ -56,4 +75,7 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default connect(state => {
+  const { user } = state.auth
+  return { user }
+})(Header)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
+import { Redirect, withRouter } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -64,9 +64,7 @@ class Login extends React.Component {
                     onSubmit={(values, { setSubmitting }) => {
                       this.props
                         .dispatch(actions.login(values.email, values.password))
-                        .then(() => {
-                          this.setState({ redirectToReferrer: true })
-                        })
+                        .then(() => this.setState({ redirectToReferrer: true }))
                         .catch(error => {
                           setSubmitting(false)
                         })
@@ -115,10 +113,4 @@ class Login extends React.Component {
   }
 }
 
-export default compose(
-  withRouter,
-  connect(state => {
-    const { user } = state.auth
-    return { user }
-  })
-)(Login)
+export default compose(withRouter, connect(() => ({})))(Login)

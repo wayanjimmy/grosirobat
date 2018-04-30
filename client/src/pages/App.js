@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { compose } from 'recompose'
 
 import Unit from './Unit'
 import Login from './Login'
@@ -22,30 +23,50 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 )
 
-class App extends React.Component {
-  componentDidMount() {
-    if (this.props.user.id === '' && authUtil.isAuthenticated()) {
-      this.props.dispatch(authActions.me())
+function currentUser(Component) {
+  class CurrentUser extends React.Component {
+    getCurrentUser() {
+      if (authUtil.isAuthenticated && this.props.user.id === '') {
+        this.props.dispatch(authActions.me())
+      }
+    }
+
+    componentDidMount() {
+      this.getCurrentUser()
+    }
+
+    componentDidUpdate(prevProps) {
+      console.log(prevProps.location)
+      if (this.props.location !== prevProps.location) {
+        this.getCurrentUser()
+      }
+    }
+
+    render() {
+      return <Component {...this.props} />
     }
   }
 
-  render() {
-    return (
-      <Switch>
-        <PrivateRoute exact path="/" component={Unit} />
-        <PrivateRoute path="/units" component={Unit} />
-        <Route
-          path="/login"
-          render={() =>
-            authUtil.isAuthenticated() ? <Redirect to="/" /> : <Login />
-          }
-        />
-      </Switch>
-    )
-  }
+  return compose(
+    withRouter,
+    connect(state => {
+      const { user } = state.auth
+      return { user }
+    })
+  )(CurrentUser)
 }
 
-export default connect(state => {
-  const { user } = state.auth
-  return { user }
-})(App)
+const App = () => (
+  <Switch>
+    <Route
+      path="/login"
+      render={() =>
+        authUtil.isAuthenticated() ? <Redirect to="/" /> : <Login />
+      }
+    />
+    <PrivateRoute exact path="/" component={currentUser(Unit)} />
+    <PrivateRoute path="/units" component={currentUser(Unit)} />
+  </Switch>
+)
+
+export default App
