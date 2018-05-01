@@ -33,10 +33,10 @@ export default function unitReducer(state = initialState, action) {
   }
 
   if (action.type === 'DESTROY_UNIT_FULFILLED') {
-    const { unit: destroyedUnit} = action.meta
+    const { unit: destroyedUnit } = action.meta
     return {
       ...state,
-      units: state.units.filter(unit => unit.id !== destroyedUnit.id)
+      units: state.units.filter(unit => unit.id !== destroyedUnit.id),
     }
   }
 

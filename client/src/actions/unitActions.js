@@ -26,7 +26,7 @@ export function destroyUnit(unit) {
     type: 'DESTROY_UNIT',
     payload: request().delete(`/api/units/${unit.id}`),
     meta: {
-      unit
-    }
+      unit,
+    },
   }
 }

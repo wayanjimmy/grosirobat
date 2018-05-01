@@ -45,7 +45,7 @@ class Login extends React.Component {
                 }}
               >
                 <div className="card-body">
-                  <h4 className="card-title mb-30">Login</h4>
+                  <h4 className="card-title mb-30">Log Masuk</h4>
                   <Formik
                     initialValues={{ email: '', password: '' }}
                     validate={values => {
@@ -78,27 +78,27 @@ class Login extends React.Component {
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <FormGroup>
-                          <Label>Email</Label>
+                          <Label>Surel</Label>
                           <Input
                             type="email"
                             name="email"
                             id="email"
-                            placeholder="Email"
+                            placeholder="jimmy@grosirobat.com"
                             onChange={handleChange}
                           />
                         </FormGroup>
                         <FormGroup>
-                          <Label>Password</Label>
+                          <Label>Sandi</Label>
                           <Input
                             type="password"
                             name="password"
                             id="password"
-                            placeholder="Password"
+                            placeholder="*****"
                             onChange={handleChange}
                           />
                         </FormGroup>
                         <Button color="primary" block disabled={isSubmitting}>
-                          {isSubmitting ? 'Logging in' : 'Login'}
+                          {isSubmitting ? 'Memproses..' : 'Log Masuk'}
                         </Button>
                       </Form>
                     )}

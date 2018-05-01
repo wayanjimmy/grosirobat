@@ -18,7 +18,7 @@ import Swal from 'sweetalert2'
 import Layout from '../components/Layout'
 import * as actions from '../actions/unitActions'
 
-class Unit extends React.Component {
+class UnitList extends React.Component {
   state = {
     currentUnit: {
       id: '',
@@ -191,4 +191,4 @@ class Unit extends React.Component {
 export default connect(state => {
   const { units } = state.unit
   return { units }
-})(Unit)
+})(UnitList)

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 
-import Unit from './Unit'
+import UnitList from './UnitList'
 import Login from './Login'
 import * as authActions from '../actions/authActions'
 import * as authUtil from '../utils/auth'
@@ -64,8 +64,8 @@ const App = () => (
         authUtil.isAuthenticated() ? <Redirect to="/" /> : <Login />
       }
     />
-    <PrivateRoute exact path="/" component={currentUser(Unit)} />
-    <PrivateRoute path="/units" component={currentUser(Unit)} />
+    <PrivateRoute exact path="/" component={currentUser(UnitList)} />
+    <PrivateRoute path="/units" component={currentUser(UnitList)} />
   </Switch>
 )
 
