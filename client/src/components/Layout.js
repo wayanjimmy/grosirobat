@@ -15,7 +15,7 @@ const Layout = ({ currentUser, children }) => (
       <Container>
         <Row>
           <Col className="text-center">
-            <small>paramore</small>
+            <small>grosirobat</small>
           </Col>
         </Row>
       </Container>

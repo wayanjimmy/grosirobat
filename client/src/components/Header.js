@@ -50,11 +50,11 @@ class Header extends React.Component {
           <Nav className="ml-auto" navbar>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Products
+                Produk
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Manage Products</DropdownItem>
-                <DropdownItem>Manage Units</DropdownItem>
+                <DropdownItem>Kelola Produk</DropdownItem>
+                <DropdownItem>Kelola Satuan</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
@@ -62,10 +62,9 @@ class Header extends React.Component {
                 {user.name}
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Manage Users</DropdownItem>
-                <DropdownItem>Change Password</DropdownItem>
+                <DropdownItem>Kelola Pengguna</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={this.handleLogout}>Logout</DropdownItem>
+                <DropdownItem onClick={this.handleLogout}>Keluar</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
