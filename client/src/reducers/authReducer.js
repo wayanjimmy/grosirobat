@@ -21,7 +21,7 @@ export default function authReducer(state = initialState, action) {
   }
 
   if (action.type === 'ME_FULFILLED') {
-    const { data: user } = action.payload
+    const { user } = action.payload.data
     return {
       ...state,
       user,

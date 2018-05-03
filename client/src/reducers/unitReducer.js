@@ -4,7 +4,7 @@ const initialState = {
 
 export default function unitReducer(state = initialState, action) {
   if (action.type === 'GET_ALL_UNITS_FULFILLED') {
-    const units = action.payload.data
+    const { units } = action.payload.data
     return {
       ...state,
       units,
@@ -12,7 +12,7 @@ export default function unitReducer(state = initialState, action) {
   }
 
   if (action.type === 'UPDATE_UNIT_FULFILLED') {
-    const updatedUnit = action.payload.data
+    const { unit: updatedUnit } = action.payload.data
     return {
       ...state,
       units: state.units.map(unit => {
@@ -25,7 +25,7 @@ export default function unitReducer(state = initialState, action) {
   }
 
   if (action.type === 'CREATE_UNIT_FULFILLED') {
-    const createdUnit = action.payload.data
+    const { unit: createdUnit } = action.payload.data
     return {
       ...state,
       units: [...state.units, createdUnit],
