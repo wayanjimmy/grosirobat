@@ -1,11 +1,13 @@
-class ProductsController < ApplicationController
+class ProductsController < ApiController
   before_action :set_product, only: [:show, :update, :destroy]
 
   # GET /products
   def index
-    @products = Product.all
+    products = Product
+      .latest
+      .paginate(:page => params[:page], :per_page => params[:per_page])
 
-    render json: @products
+    render json: products, meta: pagination_dict(products)
   end
 
   # GET /products/1
