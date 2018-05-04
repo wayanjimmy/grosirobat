@@ -5,6 +5,7 @@ class ProductsController < ApiController
   def index
     products = Product
       .latest
+      .includes(:unit)
       .paginate(:page => params[:page], :per_page => params[:per_page])
 
     render json: products, meta: pagination_dict(products)
