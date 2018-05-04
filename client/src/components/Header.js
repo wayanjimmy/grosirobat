@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
   Nav,
   Navbar,
@@ -53,8 +54,12 @@ class Header extends React.Component {
                 Produk
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Kelola Produk</DropdownItem>
-                <DropdownItem>Kelola Satuan</DropdownItem>
+                <DropdownItem>
+                  <Link to="/products">Kelola Produk</Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link to="/units">Kelola Satuan</Link>
+                </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
