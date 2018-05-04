@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+import { compose } from 'recompose'
 import get from 'lodash/get'
 import {
   Row,
@@ -34,7 +36,7 @@ class ProductList extends React.Component {
   }
 
   render() {
-    const { products, pagination } = this.props
+    const { products, pagination, location } = this.props
     return (
       <Layout>
         <Row className="p-2">
@@ -88,27 +90,25 @@ class ProductList extends React.Component {
               </tbody>
             </Table>
             <Pagination>
-              {pagination.prev_page && (
-                <PaginationItem>
-                  <PaginationLink previous href="#" />
-                </PaginationItem>
-              )}
+              <PaginationItem disabled={!pagination.prev_page}>
+                <PaginationLink previous href="#" />
+              </PaginationItem>
               {(() => {
                 let items = []
                 for (let i = 1; i <= pagination.total_pages; i++) {
                   items.push(
-                    <PaginationItem>
-                      <PaginationLink href="#">{i}</PaginationLink>
+                    <PaginationItem active={pagination.current_page === i}>
+                      <PaginationLink>
+                        <Link to={`/products?page=${i}`}>{i}</Link>
+                      </PaginationLink>
                     </PaginationItem>
                   )
                 }
                 return items
               })()}
-              {pagination.next_page && (
-                <PaginationItem>
-                  <PaginationLink next href="#" />
-                </PaginationItem>
-              )}
+              <PaginationItem disabled={!pagination.next_page}>
+                <PaginationLink next href="#" />
+              </PaginationItem>
             </Pagination>
           </Col>
         </Row>
@@ -117,7 +117,10 @@ class ProductList extends React.Component {
   }
 }
 
-export default connect(state => {
-  const { products, pagination } = state.product
-  return { products, pagination }
-})(ProductList)
+export default compose(
+  withRouter,
+  connect(state => {
+    const { products, pagination } = state.product
+    return { products, pagination }
+  })
+)(ProductList)
