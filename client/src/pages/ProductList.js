@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { Formik } from 'formik'
 import get from 'lodash/get'
+import has from 'lodash/has'
 import {
   Row,
   Col,
@@ -20,6 +21,7 @@ import {
 
 import Layout from '../components/Layout'
 import Price from '../components/Price'
+import InputUnitSelect from '../components/InputUnitSelect'
 import * as actions from '../actions/productActions'
 
 class ProductList extends React.Component {
@@ -161,6 +163,7 @@ class ProductList extends React.Component {
                 isSubmitting,
                 handleChange,
                 handleSubmit,
+                setFieldValue,
               }) => (
                 <Form onSubmit={handleSubmit}>
                   <FormGroup>
@@ -195,6 +198,16 @@ class ProductList extends React.Component {
                     <Label for="value">
                       Satuan <span className="text-danger">*</span>
                     </Label>
+                    <InputUnitSelect
+                      defaultValue={values.unit_id}
+                      onChange={unit => {
+                        if (has(unit, 'value')) {
+                          setFieldValue('unit_id', unit.value)
+                        } else {
+                          setFieldValue('unit_id', '')
+                        }
+                      }}
+                    />
                   </FormGroup>
                   <Button disabled={isSubmitting}>
                     {isSubmitting ? 'Menyimpan..' : 'Simpan'}
