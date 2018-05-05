@@ -1,3 +1,5 @@
+import get from 'lodash/get'
+
 const initialState = {
   products: [],
   pagination: {
@@ -11,7 +13,8 @@ const initialState = {
 
 export default function productReducer(state = initialState, action) {
   if (action.type === 'GET_ALL_PRODUCTS_FULFILLED') {
-    const { products, meta: pagination } = action.payload.data
+    const products = get(action, 'payload.data.products', [])
+    const pagination = Object.assign({}, action.payload.data.meta)
     return {
       ...state,
       products,
