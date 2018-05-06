@@ -20,6 +20,7 @@ gem 'simple_command'
 gem 'active_model_serializers'
 gem 'will_paginate'
 gem 'api-pagination'
+gem 'rspec-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

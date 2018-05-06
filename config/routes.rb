@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   scope '/api' do
     post 'authenticate', to: 'authentication#authenticate'
     get 'me', to: 'me#index'
-    resources :units
-    resources :products
+    resources :units, except: [:new, :edit]
+    resources :products, except: [:new, :edit]
   end
 
   get '*path', to: 'application#fallback_index_html', constraints: -> (request) do
