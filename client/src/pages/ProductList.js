@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { Formik } from 'formik'
 import get from 'lodash/get'
-import has from 'lodash/has'
+import omit from 'lodash/omit'
 import Swal from 'sweetalert2'
 import {
   Row,
@@ -61,13 +61,15 @@ class ProductList extends React.Component {
   handleDelete = product => e => {
     e.preventDefault()
     Swal({
-      title: 'Hapus Unit',
+      title: 'Hapus Produk',
       text: `Hapus ${product.name} ?`,
       type: 'warning',
       showCancelButton: true,
-    }).then(result => {
+    }).then(async result => {
       if (result.value) {
-        this.props.dispatch(actions.destroyProduct(product))
+        await this.props.dispatch(actions.destroyProduct(product))
+        const { search } = this.props.location
+        await this.props.dispatch(actions.getAllProducts(search))
       }
     })
   }
@@ -185,7 +187,13 @@ class ProductList extends React.Component {
             </Button>
             <div className="clearfix" />
             <Formik
-              initialValues={Object.assign({}, currentProduct)}
+              initialValues={Object.assign({}, currentProduct, {
+                unit: {
+                  value: get(currentProduct, 'unit.id', ''),
+                  label: get(currentProduct, 'unit.name', ''),
+                },
+                price: +currentProduct.price,
+              })}
               enableReinitialize
               validate={values => {
                 let errors = {}
@@ -197,18 +205,22 @@ class ProductList extends React.Component {
                   errors.price = 'Required'
                 }
 
-                if (!values.unit_id) {
-                  errors.unit_id = 'Required'
+                if (!values.unit) {
+                  errors.unit = 'Required'
                 }
 
                 return errors
               }}
               onSubmit={async (values, { setSubmitting }) => {
+                values.unit_id = values.unit.value
+                values = omit(values, ['created_at', 'updated_at', 'unit'])
                 if (values.id === '') {
                   await this.props.dispatch(actions.createProduct(values))
                 } else {
                   await this.props.dispatch(actions.updateProduct(values))
                 }
+                const { search } = this.props.location
+                await this.props.dispatch(actions.getAllProducts(search))
                 setSubmitting(false)
               }}
               render={({
@@ -253,16 +265,9 @@ class ProductList extends React.Component {
                       Satuan <span className="text-danger">*</span>
                     </Label>
                     <InputUnitSelect
-                      value={Object.assign({
-                        value: values.unit_id,
-                        label: get(values, 'unit.name', ''),
-                      })}
+                      value={values.unit}
                       onChange={unit => {
-                        if (has(unit, 'value')) {
-                          setFieldValue('unit_id', unit.value)
-                        } else {
-                          setFieldValue('unit_id', '')
-                        }
+                        setFieldValue('unit', unit)
                       }}
                     />
                   </FormGroup>

@@ -51,7 +51,7 @@ class UnitList extends React.Component {
   handleDelete = unit => e => {
     e.preventDefault()
     Swal({
-      title: 'Hapus Unit',
+      title: 'Hapus Satuan',
       text: `Hapus ${unit.name} ?`,
       type: 'warning',
       showCancelButton: true,
