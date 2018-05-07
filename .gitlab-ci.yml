@@ -1,0 +1,19 @@
+image: "ruby:2.5.1"
+services:
+  - mysql:5.7
+variables:
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: grosirobat_test
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq build-essential nodejs mysql-client
+  - ruby -v
+  - which ruby
+  - gem install bundler --no-ri --no-rdoc
+  - RAILS_ENV=test bundle install --jobs $(nproc) "${FLAGS[@]}"
+  - cp config/database.yml.gitlab config/database.yml
+  - RAILS_ENV=test bundle exec rake db:create db:schema:load
+rspec:
+  script:
+    - RAILS_ENV=test bundle exec rspec
+
