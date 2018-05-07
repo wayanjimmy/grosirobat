@@ -38,15 +38,18 @@ class UnitList extends React.Component {
   }
 
   handleEdit = unit => e => {
+    e.preventDefault()
+    const { currentUnit } = this.state
     this.setState({
       currentUnit: {
-        ...this.state.currentUnit,
+        ...currentUnit,
         ...unit,
       },
     })
   }
 
   handleDelete = unit => e => {
+    e.preventDefault()
     Swal({
       title: 'Hapus Unit',
       text: `Hapus ${unit.name} ?`,

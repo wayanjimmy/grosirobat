@@ -5,6 +5,7 @@ import { compose } from 'recompose'
 import { Formik } from 'formik'
 import get from 'lodash/get'
 import has from 'lodash/has'
+import Swal from 'sweetalert2'
 import {
   Row,
   Col,
@@ -34,12 +35,41 @@ class ProductList extends React.Component {
     },
   }
 
+  handleCreateNew = e => {
+    e.preventDefault()
+    this.setState({
+      currentProduct: {
+        id: '',
+        name: '',
+        unit_id: '',
+        price: 0,
+      },
+    })
+  }
+
   handleEdit = product => e => {
     e.preventDefault()
+    const { currentProduct } = this.state
+    this.setState({
+      currentProduct: {
+        ...currentProduct,
+        ...product,
+      },
+    })
   }
 
   handleDelete = product => e => {
     e.preventDefault()
+    Swal({
+      title: 'Hapus Unit',
+      text: `Hapus ${product.name} ?`,
+      type: 'warning',
+      showCancelButton: true,
+    }).then(result => {
+      if (result.value) {
+        this.props.dispatch(actions.destroyProduct(product))
+      }
+    })
   }
 
   componentDidMount() {
@@ -146,16 +176,40 @@ class ProductList extends React.Component {
             </Pagination>
           </Col>
           <Col md={5}>
-            <Button color="primary" className="float-right">
+            <Button
+              color="primary"
+              className="float-right"
+              onClick={this.handleCreateNew}
+            >
               Tambah Produk
             </Button>
             <div className="clearfix" />
             <Formik
               initialValues={Object.assign({}, currentProduct)}
               enableReinitialize
-              validate={values => ({})}
+              validate={values => {
+                let errors = {}
+                if (!values.name) {
+                  errors.name = 'Required'
+                }
+
+                if (!values.price) {
+                  errors.price = 'Required'
+                }
+
+                if (!values.unit_id) {
+                  errors.unit_id = 'Required'
+                }
+
+                return errors
+              }}
               onSubmit={async (values, { setSubmitting }) => {
-                console.log(values)
+                if (values.id === '') {
+                  await this.props.dispatch(actions.createProduct(values))
+                } else {
+                  await this.props.dispatch(actions.updateProduct(values))
+                }
+                setSubmitting(false)
               }}
               render={({
                 values,
@@ -199,7 +253,10 @@ class ProductList extends React.Component {
                       Satuan <span className="text-danger">*</span>
                     </Label>
                     <InputUnitSelect
-                      defaultValue={values.unit_id}
+                      value={Object.assign({
+                        value: values.unit_id,
+                        label: get(values, 'unit.name', ''),
+                      })}
                       onChange={unit => {
                         if (has(unit, 'value')) {
                           setFieldValue('unit_id', unit.value)
