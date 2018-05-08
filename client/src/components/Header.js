@@ -30,8 +30,8 @@ class Header extends React.Component {
   handleLogout = e => {
     e.preventDefault()
     Swal({
-      title: 'Logout',
-      text: 'Are you sure?',
+      title: 'Log keluar',
+      text: 'yakin?',
       type: 'warning',
       showCancelButton: true,
     }).then(result => {
