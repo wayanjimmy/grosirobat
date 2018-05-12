@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 2018_05_12_004613) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "number"
-    t.string "customer_name"
+    t.string "number", null: false
+    t.string "customer_name", null: false
     t.string "customer_phone"
-    t.decimal "amount_paid", precision: 10
+    t.decimal "amount_paid", precision: 9, scale: 2
     t.string "notes"
-    t.integer "status"
+    t.boolean "is_draft", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
