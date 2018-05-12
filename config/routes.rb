@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get 'me', to: 'me#index'
     resources :units, except: [:new, :edit]
     resources :products, except: [:new, :edit]
+    resources :orders, except: [:new, :edit]
   end
 
   get '*path', to: 'application#fallback_index_html', constraints: -> (request) do
