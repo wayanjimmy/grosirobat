@@ -1,11 +1,14 @@
-class OrdersController < ApplicationController
+class OrdersController < ApiController
   before_action :set_order, only: [:show, :update, :destroy]
 
   # GET /orders
   def index
-    @orders = Order.all
+    orders = Order
+      .latest
+      .includes(line_items: [:product])
+      .paginate(:page => params[:page], :per_page => params[:per_page])
 
-    render json: @orders
+    render json: orders, meta: pagination_dict(orders)
   end
 
   # GET /orders/1
@@ -46,6 +49,6 @@ class OrdersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def order_params
-      params.require(:order).permit(:number, :customer_name, :customer_phone, :amount_paid, :notes, :status)
+      params.require(:order).permit(:customer_name, :customer_phone, :amount_paid, :notes, :is_draft)
     end
 end

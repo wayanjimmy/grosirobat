@@ -4,9 +4,9 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.string :number, :null => false
       t.string :customer_name, :null => false
       t.string :customer_phone
-      t.decimal :amount_paid, :precision => 9, :scale => 2
+      t.decimal :amount_paid, :precision => 9, :scale => 2, :default => 0
       t.string :notes
-      t.boolean :is_draft, :default => false
+      t.boolean :is_draft, :default => true
 
       t.timestamps
     end

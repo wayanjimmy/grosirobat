@@ -1,2 +1,1 @@
 ActiveModelSerializers.config.adapter = :json
-

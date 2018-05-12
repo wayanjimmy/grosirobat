@@ -17,3 +17,13 @@ end
   unit = Unit.all.shuffle.first
   Product.create!(name: "Product #{index}", unit_id: unit.id, price: 10000)
 end
+
+10.times do |index|
+  randomize  = Random.new
+  order = Order.create!(customer_name: "Customer #{index}", amount_paid: 15000, is_draft: randomize.rand(0...1))
+
+  2.times do |index|
+    product = Product.all.shuffle.first
+    order.line_items.create!(product_id: product.id, quantity: randomize.rand(1...10))
+  end
+end
