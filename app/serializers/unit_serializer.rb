@@ -1,3 +1,4 @@
-class UnitSerializer < ActiveModel::Serializer
-  attributes :id, :name, :value, :created_at, :updated_at
+class UnitSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :name, :value
 end
