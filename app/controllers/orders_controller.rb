@@ -5,10 +5,10 @@ class OrdersController < ApiController
   def index
     orders = Order
       .latest
-      .includes(line_items: [:product])
+      .includes(line_items: [{product: :unit}])
       .paginate(:page => params[:page], :per_page => params[:per_page])
 
-    render json: orders
+    render json: orders, include: '**'
   end
 
   # GET /orders/1

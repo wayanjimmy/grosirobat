@@ -45,6 +45,7 @@ class Header extends React.Component {
 
   render() {
     const { user } = this.props
+    console.log(user)
     return (
       <Navbar dark color="dark" expand="md">
         <NavbarBrand href="/">Grosir Obat</NavbarBrand>
