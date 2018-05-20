@@ -40,7 +40,7 @@ class OrderList extends React.Component {
                   <th>Tanggal</th>
                   <th>Customer</th>
                   <th>Item</th>
-                  <th>Total</th>
+                  <th className="text-right">Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,7 +54,7 @@ class OrderList extends React.Component {
                     <td>
                       <ItemSummary order={order} />
                     </td>
-                    <td>
+                    <td className="text-right">
                       <Price
                         price={sum(
                           order.line_items.map(
