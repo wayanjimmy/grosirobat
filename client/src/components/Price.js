@@ -9,7 +9,7 @@ Price.propTypes = {
 }
 
 Price.defaultProps = {
-  price: 0,
+  price: '0',
 }
 
 export default Price
