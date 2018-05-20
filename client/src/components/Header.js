@@ -60,9 +60,9 @@ class Header extends React.Component {
                 Transaksi
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>
-                  <Link to="/products">Daftar Transaksi</Link>
-                </DropdownItem>
+                <Link to="/orders" className="dropdown-item">
+                  Daftar Transaksi
+                </Link>
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
@@ -70,12 +70,12 @@ class Header extends React.Component {
                 Produk
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>
-                  <Link to="/products">Kelola Produk</Link>
-                </DropdownItem>
-                <DropdownItem>
-                  <Link to="/units">Kelola Satuan</Link>
-                </DropdownItem>
+                <Link to="/products" className="dropdown-item">
+                  Kelola Produk
+                </Link>
+                <Link to="/units" className="dropdown-item">
+                  Kelola Satuan
+                </Link>
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>

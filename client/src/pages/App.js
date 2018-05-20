@@ -5,6 +5,7 @@ import { compose } from 'recompose'
 
 import UnitList from './UnitList'
 import ProductList from './ProductList'
+import OrderList from './OrderList'
 import Login from './Login'
 import * as authActions from '../actions/authActions'
 import * as authUtil from '../utils/auth'
@@ -67,6 +68,7 @@ const App = () => (
     <PrivateRoute exact path="/" component={currentUser(UnitList)} />
     <PrivateRoute path="/units" component={currentUser(UnitList)} />
     <PrivateRoute path="/products" component={currentUser(ProductList)} />
+    <PrivateRoute path="/orders" component={currentUser(OrderList)} />
   </Switch>
 )
 
