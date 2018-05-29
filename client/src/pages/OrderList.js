@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import sum from 'lodash/sum'
 import { Link } from 'react-router-dom'
-
 import { Row, Col, Table, Pagination, PaginationItem } from 'reactstrap'
 
 import Layout from '../components/Layout'

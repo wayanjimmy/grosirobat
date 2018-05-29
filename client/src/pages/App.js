@@ -1,12 +1,33 @@
+/* eslint-disable import/first */
 import React from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
+import Loadable from 'react-loadable'
 
-import UnitList from './UnitList'
-import ProductList from './ProductList'
-import OrderList from './OrderList'
-import Login from './Login'
+import Loader from '../components/Loader'
+
+const AsyncUnitList = Loadable({
+  loader: () => import('./UnitList'),
+  loading: Loader,
+})
+const AsyncProductList = Loadable({
+  loader: () => import('./ProductList'),
+  loading: Loader,
+})
+const AsyncOrderList = Loadable({
+  loader: () => import('./OrderList'),
+  loading: Loader,
+})
+const AsyncOrderDetail = Loadable({
+  loader: () => import('./OrderDetail'),
+  loading: Loader,
+})
+const AsyncLogin = Loadable({
+  loader: () => import('./Login'),
+  loading: Loader,
+})
+
 import * as authActions from '../actions/authActions'
 import * as authUtil from '../utils/auth'
 
@@ -62,13 +83,21 @@ const App = () => (
     <Route
       path="/login"
       render={() =>
-        authUtil.isAuthenticated() ? <Redirect to="/" /> : <Login />
+        authUtil.isAuthenticated() ? <Redirect to="/" /> : <AsyncLogin />
       }
     />
-    <PrivateRoute exact path="/" component={currentUser(UnitList)} />
-    <PrivateRoute path="/units" component={currentUser(UnitList)} />
-    <PrivateRoute path="/products" component={currentUser(ProductList)} />
-    <PrivateRoute path="/orders" component={currentUser(OrderList)} />
+    <PrivateRoute exact path="/" component={currentUser(AsyncUnitList)} />
+    <PrivateRoute path="/units" component={currentUser(AsyncUnitList)} />
+    <PrivateRoute path="/products" component={currentUser(AsyncProductList)} />
+    <PrivateRoute
+      path="/orders"
+      exact
+      component={currentUser(AsyncOrderList)}
+    />
+    <PrivateRoute
+      path="/orders/:id"
+      component={currentUser(AsyncOrderDetail)}
+    />
   </Switch>
 )
 
