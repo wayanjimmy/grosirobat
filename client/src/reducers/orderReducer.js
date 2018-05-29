@@ -14,7 +14,11 @@ const initialState = {
 export default function orderReducer(state = initialState, action) {
   if (action.type === 'GET_ALL_ORDERS_FULFILLED') {
     const orders = get(action, 'payload.data.orders', [])
-    const pagination = Object.assign({}, action.payload.data.meta)
+    const pagination = Object.assign(
+      {},
+      state.pagination,
+      action.payload.data.meta.pagination
+    )
     return {
       ...state,
       orders,

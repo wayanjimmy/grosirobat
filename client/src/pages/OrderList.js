@@ -89,7 +89,7 @@ class OrderList extends React.Component {
                       active={pagination.current_page === i}
                       key={i}
                     >
-                      <Link to={`/products?page=${i}`} className="page-link">
+                      <Link to={`/orders?page=${i}`} className="page-link">
                         {i}
                       </Link>
                     </PaginationItem>
@@ -117,6 +117,7 @@ class OrderList extends React.Component {
   }
 }
 
-export default connect(({ order: { orders, pagination } }) => ({ orders }))(
-  OrderList
-)
+export default connect(state => {
+  const { orders, pagination } = state.order
+  return { orders, pagination }
+})(OrderList)
