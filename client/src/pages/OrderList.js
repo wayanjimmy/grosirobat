@@ -8,8 +8,7 @@ import Layout from '../components/Layout'
 import Date from '../components/Date'
 import * as actions from '../actions/orderActions'
 import Price from '../components/Price'
-
-const ItemSummary = ({ order }) => `${order.line_items.length} Item`
+import ItemSummary from '../components/ItemSummary'
 
 class OrderList extends React.Component {
   componentDidMount() {
@@ -36,7 +35,7 @@ class OrderList extends React.Component {
               </colgroup>
               <thead>
                 <tr>
-                  <th>No. Invoice</th>
+                  <th>No. Transaksi</th>
                   <th>Tanggal</th>
                   <th>Customer</th>
                   <th>Item</th>
@@ -46,7 +45,9 @@ class OrderList extends React.Component {
               <tbody>
                 {orders.map(order => (
                   <tr key={order.id}>
-                    <td>{order.number}</td>
+                    <td>
+                      <Link to={`/orders/${order.id}`}>{order.number}</Link>
+                    </td>
                     <td>
                       <Date date={order.created_at} />
                     </td>
@@ -71,7 +72,7 @@ class OrderList extends React.Component {
               <PaginationItem disabled={!pagination.prev_page}>
                 {pagination.prev_page ? (
                   <Link
-                    to={`/products?page=${pagination.current_page - 1}`}
+                    to={`/orders?page=${pagination.current_page - 1}`}
                     className="page-link"
                   >
                     Prev
@@ -99,7 +100,7 @@ class OrderList extends React.Component {
               <PaginationItem disabled={!pagination.next_page}>
                 {pagination.next_page ? (
                   <Link
-                    to={`/products?page=${pagination.current_page + 1}`}
+                    to={`/orders?page=${pagination.current_page + 1}`}
                     className="page-link"
                   >
                     Next

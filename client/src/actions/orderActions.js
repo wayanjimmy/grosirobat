@@ -9,3 +9,10 @@ export function getAllOrders(search) {
     payload: request().get(`/api/orders${search}&per_page=5`),
   }
 }
+
+export function getOrder(id) {
+  return {
+    type: 'GET_ORDER',
+    payload: request().get(`/api/orders/${id}`),
+  }
+}

@@ -1,6 +1,13 @@
 import get from 'lodash/get'
 
 const initialState = {
+  order: {
+    id: '',
+    number: '',
+    customer_name: '',
+    amount_paid: '',
+    line_items: [],
+  },
   orders: [],
   pagination: {
     current_page: 1,
@@ -23,6 +30,14 @@ export default function orderReducer(state = initialState, action) {
       ...state,
       orders,
       pagination,
+    }
+  }
+
+  if (action.type === 'GET_ORDER_FULFILLED') {
+    const { order } = action.payload.data
+    return {
+      ...state,
+      order,
     }
   }
 

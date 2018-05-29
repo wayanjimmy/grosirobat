@@ -15,7 +15,7 @@ class OrdersController < ApiController
 
   # GET /orders/1
   def show
-    render json: @order
+    render json: @order, include: '**'
   end
 
   # POST /orders
@@ -46,7 +46,9 @@ class OrdersController < ApiController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order
+        .includes(line_items: [{product: :unit}])
+        .find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
