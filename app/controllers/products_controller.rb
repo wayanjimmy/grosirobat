@@ -6,8 +6,11 @@ class ProductsController < ApiController
     products = Product
       .latest
       .includes(:unit)
+      .paginate(:page => params[:page], :per_page => params[:per_page])
 
-    render json: products
+    render json: products, meta: {
+      pagination: create_pagination(products)
+    }
   end
 
   # GET /products/1

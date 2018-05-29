@@ -81,6 +81,7 @@ class ProductList extends React.Component {
 
   render() {
     const { products, pagination } = this.props
+    console.log(pagination)
     const { currentProduct } = this.state
     return (
       <Layout>

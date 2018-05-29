@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import sum from 'lodash/sum'
+import { Link } from 'react-router-dom'
 
-import { Row, Col, Table } from 'reactstrap'
+import { Row, Col, Table, Pagination, PaginationItem } from 'reactstrap'
 
 import Layout from '../components/Layout'
 import Date from '../components/Date'
@@ -18,7 +19,7 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const { orders } = this.props
+    const { orders, pagination } = this.props
     return (
       <Layout>
         <Row>
@@ -67,6 +68,48 @@ class OrderList extends React.Component {
                 ))}
               </tbody>
             </Table>
+            <Pagination>
+              <PaginationItem disabled={!pagination.prev_page}>
+                {pagination.prev_page ? (
+                  <Link
+                    to={`/products?page=${pagination.current_page - 1}`}
+                    className="page-link"
+                  >
+                    Prev
+                  </Link>
+                ) : (
+                  <span className="page-link">Prev</span>
+                )}
+              </PaginationItem>
+              {(() => {
+                let items = []
+                for (let i = 1; i <= pagination.total_pages; i++) {
+                  items.push(
+                    <PaginationItem
+                      active={pagination.current_page === i}
+                      key={i}
+                    >
+                      <Link to={`/products?page=${i}`} className="page-link">
+                        {i}
+                      </Link>
+                    </PaginationItem>
+                  )
+                }
+                return items
+              })()}
+              <PaginationItem disabled={!pagination.next_page}>
+                {pagination.next_page ? (
+                  <Link
+                    to={`/products?page=${pagination.current_page + 1}`}
+                    className="page-link"
+                  >
+                    Next
+                  </Link>
+                ) : (
+                  <span className="page-link">Next</span>
+                )}
+              </PaginationItem>
+            </Pagination>
           </Col>
         </Row>
       </Layout>
@@ -74,4 +117,6 @@ class OrderList extends React.Component {
   }
 }
 
-export default connect(({ order: { orders } }) => ({ orders }))(OrderList)
+export default connect(({ order: { orders, pagination } }) => ({ orders }))(
+  OrderList
+)

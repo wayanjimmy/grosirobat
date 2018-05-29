@@ -8,7 +8,9 @@ class OrdersController < ApiController
       .includes(line_items: [{product: :unit}])
       .paginate(:page => params[:page], :per_page => params[:per_page])
 
-    render json: orders, include: '**'
+    render json: orders, include: '**', meta: {
+      pagination: create_pagination(orders)
+    }
   end
 
   # GET /orders/1
