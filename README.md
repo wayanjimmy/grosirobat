@@ -37,6 +37,13 @@ Projek ini dibuat untuk belajar Ruby on Rails, terinspirasi dari project yang sa
 2. `git clone https://gitlab.com/wayanjimmy/grosirobat.git`
 3. `cd grosirobat && docker-compose up`
 
+## Screenshots
+![Satuan](https://gitlab.com/wayanjimmy/grosirobat/raw/master/docs/satuan.png)
+![Produk](https://gitlab.com/wayanjimmy/grosirobat/raw/master/docs/produk.png)
+![Transaksi](https://gitlab.com/wayanjimmy/grosirobat/raw/master/docs/transaksi.png)
+![Detail Transaksi](https://gitlab.com/wayanjimmy/grosirobat/raw/master/docs/detail-transaksi.png)
+
 ## Tautan Terkait
 - https://medium.com/superhighfives/a-top-shelf-web-stack-rails-5-api-activeadmin-create-react-app-de5481b7ec0b
 - https://www.pluralsight.com/guides/ruby-ruby-on-rails/token-based-authentication-with-ruby-on-rails-5-api
+- https://github.com/nafiesl/grosir-obat
