@@ -11,8 +11,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavItem,
-  NavLink,
 } from 'reactstrap'
 import Swal from 'sweetalert2'
 
@@ -52,9 +50,6 @@ class Header extends React.Component {
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink>Tambah Transaksi</NavLink>
-            </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Transaksi

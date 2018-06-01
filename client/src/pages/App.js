@@ -7,6 +7,10 @@ import Loadable from 'react-loadable'
 
 import Loader from '../components/Loader'
 
+const AsyncLogin = Loadable({
+  loader: () => import('./Login'),
+  loading: Loader,
+})
 const AsyncUnitList = Loadable({
   loader: () => import('./UnitList'),
   loading: Loader,
@@ -23,8 +27,8 @@ const AsyncOrderDetail = Loadable({
   loader: () => import('./OrderDetail'),
   loading: Loader,
 })
-const AsyncLogin = Loadable({
-  loader: () => import('./Login'),
+const AsyncAddOrder = Loadable({
+  loader: () => import('./AddOrder'),
   loading: Loader,
 })
 
@@ -89,6 +93,11 @@ const App = () => (
     <PrivateRoute exact path="/" component={currentUser(AsyncUnitList)} />
     <PrivateRoute path="/units" component={currentUser(AsyncUnitList)} />
     <PrivateRoute path="/products" component={currentUser(AsyncProductList)} />
+    <PrivateRoute
+      path="/orders/new"
+      exact
+      component={currentUser(AsyncAddOrder)}
+    />
     <PrivateRoute
       path="/orders"
       exact
