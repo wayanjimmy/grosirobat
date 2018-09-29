@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_05_12_061545) do
 
-  create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "product_id"
     t.integer "order_id"
     t.integer "quantity", default: 1
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2018_05_12_061545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "number", null: false
     t.string "customer_name", null: false
     t.string "customer_phone"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2018_05_12_061545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.integer "unit_id"
     t.decimal "price", precision: 8, scale: 2
@@ -40,14 +40,14 @@ ActiveRecord::Schema.define(version: 2018_05_12_061545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "units", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "units", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
