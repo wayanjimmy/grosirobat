@@ -6,7 +6,7 @@ export function getAllOrders(search) {
   }
   return {
     type: 'GET_ALL_ORDERS',
-    payload: request().get(`/api/orders${search}&per_page=5`),
+    payload: request().get(`/api/orders${search}&per_page=10`),
   }
 }
 

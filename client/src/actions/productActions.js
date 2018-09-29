@@ -6,7 +6,7 @@ export function getAllProducts(search) {
   }
   return {
     type: 'GET_ALL_PRODUCTS',
-    payload: request().get(`/api/products${search}&per_page=5`),
+    payload: request().get(`/api/products${search}&per_page=10`),
   }
 }
 
